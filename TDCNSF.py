@@ -60,3 +60,20 @@ class TDCNSF(pd.Data_process):
     
     def ReservaTotalt(self,edad,t,m):
         return self.Reserva1t(edad,t,m)+self.Reserva2t(edad,t,m)+self.Reserva3t(edad, t, m)
+    
+    def CalcularReservat(self,edad,t,m):
+        R1t=self.Reserva1t(edad, t, m)
+        R2t=self.Reserva2t(edad, t, m)
+        R3t=self.Reserva3t(edad, t, m)
+        RTt=self.ReservaTotalt(edad, t, m)
+        
+        print(f'La Reserva del decremento 1 a tiempo {t} es {R1t}')
+        print(f'La Reserva del decremento 2 a tiempo {t} es {R2t}')
+        print(f'La Reserva del decremento 3 a tiempo {t} es {R3t}')
+        print(f'La Reserva Total a tiempo {t} es {RTt}')
+
+
+    ##2Valores Garantizados
+
+
+        

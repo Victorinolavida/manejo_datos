@@ -1,6 +1,5 @@
 import pandas as pd
 import itertools
-import math
 
 
 
@@ -20,7 +19,7 @@ B3=pd.DataFrame({'Benefecio por invalidez':
 
 
 class Load_databases:
-    i=0.422
+    i=0.0422
     n=10
     alpha=0.35
     beta=0.22
@@ -55,7 +54,7 @@ class Load_databases:
                 a=1-0.5*second[i]
                 b=0.5*third[i]
                 c=(1/3)*third[i]*second[i]
-                salida.append(first[i]*(a-b+c))
+                salida.append(round(first[i]*(a-b+c),7))
             
         calc_qxi(data_qx1, data_qx2, data_qx3, qx1)
 
@@ -67,10 +66,10 @@ class Load_databases:
         pxTEp =[]
 
         for i in range(len(qx1)):
-            qxTEp.append(qx1[i]+qx2[i]+qx3[i])
+            qxTEp.append(round(qx1[i]+qx2[i]+qx3[i],7))
 
         for i in range(len(qxTEp)):
-            pxTEp.append(1-qxTEp[i])
+            pxTEp.append(round(1-qxTEp[i],7))
             
 
             
@@ -113,5 +112,5 @@ class Load_databases:
         print('Gamma: ',self.gamma)
     
     def get_table(self):
-        return self.TDFP_table
+        return self.table
     

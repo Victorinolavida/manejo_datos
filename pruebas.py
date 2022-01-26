@@ -22,17 +22,8 @@ table1=TDCNSF.TDCNSF('TablaCNSFdecremento1.csv',
 
 table.calcular_seguro(50, 5)
 
-print(table1.ValorPresenteIngresost(50, 5, 5))
-    
 
-for i in range(1,11):
-    print(table1.ValorPresenteEgresos2t(50, i))
-   
-print(table1.ValorPresenteEgresos2t(50, 6))
+print(table1.valor_rescate(50, 5))
 
-
-z=[]
-t=6
-for k in range(1,10+1-t):
-    z.append(math.pow(1+0.0422,-k))
-print(z)
+for i in range(10):
+    print(table1.SeguroProrrogadot(30, i, 5))

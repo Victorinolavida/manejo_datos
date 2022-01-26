@@ -19,25 +19,26 @@ B3=pd.DataFrame({'Benefecio por invalidez':
 
 
 class Load_databases:
-    i=0.0422
-    n=10
-    alpha=0.35
-    beta=0.22
-    gamma=0.175
+    
     path='C:/Users/victo/Downloads/Basededatos/'
     def __init__(self,path1,path2,path3):
         self.base1=pd.read_csv(self.path+path1)
         self.base2=pd.read_csv(self.path+path2)
         self.base3=pd.read_csv(self.path+path3)
         self.data=[self.base1,self.base1,self.base1]
-        self.table=self.cal_table_TDFP()
+        self.table=self._cal_table_TDFP()
         self.b1=B1
         self.b2=B2
         self.b3=B3
+        self._i=0.0422
+        self._n=10
+        self._alpha=0.35
+        self._beta=0.22
+        self._gamma=0.175
         
  
-    
-    def cal_table_TDFP(self):
+    #privado
+    def _cal_table_TDFP(self):
         
         data_qx1=list(self.base1["qx'(1)"])
 
@@ -79,9 +80,15 @@ class Load_databases:
         return TDEp
    
 
+    def set_parametros(self,i,n,alpha,beta,gamma):
+        self._i=i
+        self._n=n
+        self._alpha=alpha
+        self._beta=beta
+        self._gamma=gamma
     
     
-    #muestra las databases      
+    #muestra las databases      , Publico
     def show_data(self, number=0):
         if number==1:
             print(self.data[0])
@@ -92,7 +99,7 @@ class Load_databases:
         else:
             print(self.data)
             
-            
+    #publico
     def show_beneficios(self):
         print(B1)
         print('*'*50)
@@ -101,16 +108,14 @@ class Load_databases:
         print(B3)
         
      
-    def show_tableh(self):
-        print(self.TDFP_table.head())
+    def show_table_head(self):
+        print(self.table.head())
     
     def show_parametros(self):
-        print('Interes:',self.i)
-        print('tiempo(años): ',self.n)
-        print('Alpha: ',self.alpha)
-        print('Beta: ',self.beta)
-        print('Gamma: ',self.gamma)
-    
-    def get_table(self):
-        return self.table
+        print('Interes:',self._i)
+        print('tiempo(años): ',self._n)
+        print('Alpha: ',self._alpha)
+        print('Beta: ',self._beta)
+        print('Gamma: ',self._gamma)
+        
     

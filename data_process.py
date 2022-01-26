@@ -11,9 +11,9 @@ import math
 class Data_process(db.Load_databases):
     
     ##funciona bien 
-    def kpxT(self,edad,t=0):
+    def _kpxT(self,edad,t=0):
         kpxt=[]
-        for k in range(self.n-t):
+        for k in range(self._n-t):
             if(k>0):
                 kpxt.append(round(kpxt[k-1]*self.table["px(T)"][edad+t+k-1],7))
             else:
@@ -22,42 +22,42 @@ class Data_process(db.Load_databases):
         return kpxt
     
     ##funciona como debe
-    def qxtk1(self,edad,t=0):
+    def _qxtk1(self,edad,t=0):
         qxk1=[]
-        for k in range(self.n-t):   
+        for k in range(self._n-t):   
             qxk1.append(self.table["qx(1)"][edad+k+t])
         return qxk1
     
     ##funcion bien
-    def qxtk2(self,edad,t=0):
+    def _qxtk2(self,edad,t=0):
         qxk1=[]
-        for k in range(self.n-t):   
+        for k in range(self._n-t):   
             qxk1.append(self.table["qx(2)"][edad+k+t+1])
         return qxk1
     
     #funciona bien
-    def qxtk3(self,edad,t=0):
+    def _qxtk3(self,edad,t=0):
         qxk1=[]
-        for k in range(self.n-t):   
+        for k in range(self._n-t):   
             qxk1.append(self.table["qx(3)"][edad+k+t])
         return qxk1
     ##funciona OK
-    def z_vector(self,t=0):
+    def _z_vector(self,t=0):
         z=[]
-        for k in range(1,self.n-t+1):
-            z.append(math.pow(1+self.i,-k))
+        for k in range(1,self._n-t+1):
+            z.append(math.pow(1+self._i,-k))
         return z
-    #funciona bien , bug al parecer si pones una edad y t=0
+    #funciona bien 
     def prima_riesgo(self,edad,t):
-        kpxt=self.kpxT(edad,t)
-        qxk1=self.qxtk1(edad,t)
-        qxk2=self.qxtk2(edad,t)
-        qxk3=self.qxtk3(edad,t)
-        z=self.z_vector(t)
+        kpxt=self._kpxT(edad,t)
+        qxk1=self._qxtk1(edad,t)
+        qxk2=self._qxtk2(edad,t)
+        qxk3=self._qxtk3(edad,t)
+        z=self._z_vector(t)
         P1=[]
         P2=[]
         P3=[]
-        for k in range(self.n-t):
+        for k in range(self._n-t):
             P1.append( kpxt[k]*qxk1[k]*z[k]*self.b1['beneficio por muerte'][k])
             P2.append( kpxt[k]*qxk2[k]*z[k]*self.b2['Beneficio por cancelacion'][k])
             P3.append(kpxt[k]*qxk3[k]*z[k]*self.b3['Benefecio por invalidez'][k])
@@ -69,7 +69,7 @@ class Data_process(db.Load_databases):
             vk=[]
             VPIt=[]
             for k in range(1,abs(m-t)+1):
-                vk.append(math.pow(1+self.i,-(k-1)))
+                vk.append(math.pow(1+self._i,-(k-1)))
             for k in range(abs(m-t)):
                 if(k>0):
                     
@@ -97,7 +97,7 @@ class Data_process(db.Load_databases):
         A=sum(self.anualidad(edad, t,m))
         if(A!=0):
             PNN=P/A
-            return PNN/(1-self.alpha-self.beta-self.gamma)
+            return PNN/(1-self._alpha-self._beta-self._gamma)
         else:
             return 0
          

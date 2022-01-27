@@ -6,6 +6,8 @@ Created on Mon Jan 24 17:44:04 2022
 """
 
 import data_process as pd
+import matplotlib.pyplot as plt
+
 
 class TDCNSF(pd.Data_process):
     TT=10
@@ -113,9 +115,9 @@ class TDCNSF(pd.Data_process):
     
     
     def SeguroProrrogadot(self,edad,t,m):
-        kpxtT=self.kpxT(edad,t)
-        qxtk1=self.qxtk1(edad,t)
-        z=self.z_vector(t)
+        kpxtT=self._kpxT(edad,t)
+        qxtk1=self._qxtk1(edad,t)
+        z=self._z_vector(t)
         VR=self.valor_rescate(edad, m)
         P1=[]
         b1t=self.b1['beneficio por muerte']
@@ -124,8 +126,86 @@ class TDCNSF(pd.Data_process):
             
         return (VR[t]/sum(P1))*3
     
-
-
+    def graficar_reserva(self,edad,m,t=0,num=1):
+        reservas=[]
+        tiempos=[]
+        if(num==1):
+            for j in range(t+1):
+                reservas.append(self.Reserva1t(edad, j, m))
+                tiempos.append(j)
+            plt.ylabel('Reserva (1) a tiempo ')
+            plt.plot(reservas,color = 'r')
+        elif(num==2):
+            for j in range(t+1):
+                reservas.append(self.Reserva2t(edad, j, m))
+                tiempos.append(j)
+            plt.plot(reservas,color = '#4CAF50')
+            plt.ylabel('Reserva (2) a tiempo ')
+        elif(num==3):
+            for j in range(t+1):
+                reservas.append(self.Reserva3t(edad, j, m))
+                tiempos.append(j)
+            plt.ylabel('Reserva (1) a tiempo ')
+            plt.plot(reservas,color = 'y')
+        plt.title(f'Reserva ({num})')
+        plt.xlabel('Tiempo t')
+        plt.show()  
     
+    def graficar_reserva_total(self,edad,m,t=0):
+        reservas=[]
+        tiempos=[]
+        for i in range(t+1):
+            reservas.append(self.ReservaTotalt(edad, t, m))
+            tiempos.append(i)
+        plt.title("Reserva Total")
+        plt.ylabel("Reserva total a tiempo t")
+        plt.xlabel('Tiempo t')
+        plt.plot(tiempos, color='#008000')
+        plt.show()  
+            
+    def graficar_func_rescate(self,n,t=0):
+        datos=[]
+        for i in range(t+1):
+            datos.append(self.funcion_rescate(n)[i])
+        plt.plot(datos,color='#49a782')
+        plt.title("Funcion Rescate")
+        plt.xlabel('Función de Rescate')
+        plt.ylabel('Porcentaje de devolución')
+        plt.show()
+        
+    def graficar_valor_rescate(self,edad,m,t=0):
+        valorR=[]
+        rv=[]
+        for i in range(t):
+            valorR.append(self.valor_rescate(edad,m)[i])
+        for i in range(t+1):
+            rv.append(self.Reserva1t(edad,i,m))
+        plt.plot(valorR)
+        plt.plot(rv)
+        plt.title("Valor rescate")
+        plt.xlabel('Tiempo t')
+        plt.ylabel('Valor de Rescate')
+        plt.show()
     
-    
+    def graficar_Seguro_saldado(self,edad,m,t=0):
+        seguro=[]
+        for i in range(t):
+            seguro.append(self.SeguroSaldadot(edad, i, m))
+        plt.plot(seguro,color='black')
+        plt.title("Seguro saldado")
+        plt.xlabel("Tiempo t")
+        plt.ylabel('Seguro Saldado')
+        plt.show()
+        
+    def graficar_Seguro_prorrogrado(self,edad,m,t=0):
+        data=[]
+        for i in range(t):
+            data.append(self.SeguroProrrogadot(edad, i, m))
+        plt.plot(data,color='#ff8f00')
+        plt.title("seguro prorrogrado")
+        plt.xlabel("Tiempo t")
+        plt.ylabel('Seguro Prorrogrado')
+        plt.show()
+            
+        
+        

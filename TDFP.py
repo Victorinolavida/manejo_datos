@@ -57,3 +57,6 @@ class TDFP(dp.Data_process):
         print("La Anualidad es:", A)
         print("La Prima Neta Nivelada es:", PNN)
         print("La Prima de Tarifa es:", PT)
+        
+        
+   

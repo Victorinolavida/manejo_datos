@@ -25,7 +25,6 @@ class Load_databases:
         self.base1=pd.read_csv(self.path+path1)
         self.base2=pd.read_csv(self.path+path2)
         self.base3=pd.read_csv(self.path+path3)
-        self.data=[self.base1,self.base1,self.base1]
         self.table=self._cal_table_TDFP()
         self.b1=B1
         self.b2=B2
@@ -88,34 +87,30 @@ class Load_databases:
         self._gamma=gamma
     
     
-    #muestra las databases      , Publico
-    def show_data(self, number=0):
-        if number==1:
-            print(self.data[0])
-        elif number==2:
-            print(self.data[1])
-        elif number==3:
-            print(self.data[2])
-        else:
-            print(self.data)
             
     #publico
     def show_beneficios(self):
+        print('    ')
         print(B1)
         print('*'*50)
         print(B2)
         print('*'*50)
         print(B3)
+        print('    ')
         
      
     def show_table_head(self):
+        print('    ')
         print(self.table.head())
+        print('    ')
     
     def show_parametros(self):
+        print('    ')
         print('Interes:',self._i)
         print('tiempo(años): ',self._n)
         print('Alpha: ',self._alpha)
         print('Beta: ',self._beta)
         print('Gamma: ',self._gamma)
+        print('    ')
         
     
